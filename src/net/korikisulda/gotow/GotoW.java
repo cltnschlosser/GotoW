@@ -75,6 +75,7 @@ public class GotoW {
 				System.out.print("_");
 			}
 		}
+		System.out.println();
 		jar.close();
 	}
 	
