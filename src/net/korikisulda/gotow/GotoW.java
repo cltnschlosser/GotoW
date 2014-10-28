@@ -21,11 +21,12 @@ public class GotoW {
 	
 	public void command(String[] args) throws IOException{
 		File inputFile=new File(args[0]);
-		if(!inputFile.exists()){
-			System.out.println("That file does not exist.");
-			return;
-		} else if(args.length==0){
+
+		if(args.length==0){
 			System.out.println("gw.jar <filepath>");
+			return;
+		}else if(!inputFile.exists()){
+			System.out.println("That file does not exist.");
 			return;
 		}
 		
