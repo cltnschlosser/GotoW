@@ -45,11 +45,10 @@ public class GotoW {
 			
 			InputStream is=jar.getInputStream(jar.getJarEntry(entry.getName()));
             int currentByte;
-            byte data[] = new byte[8224];
+            byte data[] = new byte[1048576];
             FileOutputStream fos = new FileOutputStream(temp);
-            BufferedOutputStream dest = new BufferedOutputStream(fos,
-            8224);
-            while ((currentByte = is.read(data, 0, 8224)) != -1) {
+            BufferedOutputStream dest = new BufferedOutputStream(fos,1048576);
+            while ((currentByte = is.read(data, 0, 1048576)) != -1) {
                 dest.write(data, 0, currentByte);
             }
             dest.flush();
