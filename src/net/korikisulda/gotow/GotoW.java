@@ -9,13 +9,11 @@ import java.util.jar.JarFile;
 
 /**
  * Edits by Travis (Toyz) on 10/29/2014.
- *
+ * <p/>
  * Original by, korikisulda
  */
 
 public class GotoW {
-    private static GUI gui = null;
-
     public static void main(String[] args) throws IOException {
         System.out.println("Basic Goto_W Java Bytecode Finder");
         System.out.println("-----------------");
@@ -23,7 +21,7 @@ public class GotoW {
         System.out.println("JAVAP Location: " + Utils.javapPath());
         System.out.println("\n");
 
-        if (Utils.javaHome()==null || Utils.javaHome()==null?true:Utils.javaHome().trim().equals("")) {
+        if (Utils.javaHome() == null || Utils.javaHome() == null ? true : Utils.javaHome().trim().equals("")) {
             System.out.println("Set JAVA_HOME variable in your PATH settings");
             return;
         }
@@ -34,9 +32,9 @@ public class GotoW {
         }
 
         if (args[0].equals("gui")) {
-            gui = new GUI(new GotoW());
-            gui.setVisible(true);
-        }else {
+            Utils.setGui(new GUI(new GotoW()));
+            Utils.getGui().setVisible(true);
+        } else {
             new GotoW().command(args);
         }
     }
@@ -47,7 +45,7 @@ public class GotoW {
 
         if (!inputFile.exists()) {
 
-               println("That file does not exist.");
+            Utils.println("That file does not exist.");
 
             return;
         }
@@ -81,12 +79,12 @@ public class GotoW {
             is.close();
         }
 
-            println(String.format("Extracted %s classes from %s", temp_Files.size() + "", inputFile.getName()));
+        Utils.println(String.format("Extracted %s classes from %s", temp_Files.size() + "", inputFile.getName()));
 
         for (Map.Entry<String, File> f : temp_Files.entrySet()) {
 
-                println("-----------------");
-                println(String.format("Looking in file: %s", f.getKey()));
+            Utils.println("-----------------");
+            Utils.println(String.format("Looking in file: %s", f.getKey()));
 
             Runtime rt = Runtime.getRuntime();
             Process proc = rt.exec(new String[]{Utils.javapPath(), "-c", f.getValue().getAbsolutePath()});
@@ -96,28 +94,14 @@ public class GotoW {
             while ((s = br.readLine()) != null) {
                 contents += s + "\n";
             }
-            if (contents.contains("goto_w")) {
-            	println("Found goto_w");
+
+            if (Utils.HasGotoW(contents)) {
+                Utils.println("Found goto_w");
             } else {
-            	println("No goto_w found.");
+                Utils.println("No goto_w found.");
             }
         }
         System.out.println();
         jar.close();
-    }
-    
-    public void print(String ... text){
-    	String concat="";
-    	for(String s:text) concat+=s;
-        if (gui == null) {
-            System.out.print(concat);
-        }else{
-        	gui.output.append(concat);
-        }
-    }
-    
-    public void println(String ... text){
-    	text[text.length-1]+="\n";
-    	print(text);
     }
 }
