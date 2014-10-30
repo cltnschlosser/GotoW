@@ -1,17 +1,25 @@
 package net.korikisulda.gotow;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 public class GotoW {
+    private HashMap<String, File> temp_Files = new HashMap<String, File>();
+
+    private static GUI gui = null;
+
     public static void main(String[] args) throws IOException {
+        System.out.println("Basic Goto_W Java Bytecode Finder");
+        System.out.println("-----------------");
         System.out.println("JAVA_HOME Location: " + Utils.javaHome());
         System.out.println("JAVAP Location: " + Utils.javapPath());
+        System.out.println("\n");
 
-        if(Utils.javaHome().equals(null)){
+        if (Utils.javaHome().equals(null) || Utils.javaHome().trim().equals("")) {
             System.out.println("Set JAVA_HOME variable in your PATH settings");
             return;
         }
@@ -21,34 +29,37 @@ public class GotoW {
             return;
         }
 
-        if(args[0].equals("gui")){
-            System.out.println("Coming Soon...");
-            return;
+        if (args[0].equals("gui")) {
+            gui = new GUI(new GotoW());
+            gui.setVisible(true);
+        }else {
+            new GotoW().command(args);
         }
-
-        new GotoW().command(args);
     }
 
     public void command(String[] args) throws IOException {
         File inputFile = new File(args[0]);
 
         if (!inputFile.exists()) {
-            System.out.println("That file does not exist.");
+            if (gui == null) {
+                System.out.println("That file does not exist.");
+            } else {
+                gui.output.append("That file does not exist.\n");
+            }
             return;
         }
 
         JarFile jar = new JarFile(inputFile);
 
         Enumeration<JarEntry> entries = jar.entries();
-        ArrayList<File> tempFiles = new ArrayList<File>();
 
         while (entries.hasMoreElements()) {
             JarEntry entry = entries.nextElement();
             if (!entry.getName().endsWith(".class")) continue;
 
             File temp = File.createTempFile(Utils.sanitiseName(entry.getName()), ".class");
-            tempFiles.add(temp);
             temp.deleteOnExit();
+            temp_Files.put(entry.getName(), temp);
 
             InputStream is = jar.getInputStream(jar.getJarEntry(entry.getName()));
 
@@ -67,10 +78,22 @@ public class GotoW {
             is.close();
         }
 
-        System.out.println("Extracted " + tempFiles.size() + " classes");
-        for (File f : tempFiles) {
+        if (gui == null) {
+            System.out.println(String.format("Extracted %s classes from %s", temp_Files.size() + "", inputFile.getName()));
+        } else {
+            gui.output.append(String.format("Extracted %s classes from %s\n", temp_Files.size() + "", inputFile.getName()));
+        }
+
+        for (Map.Entry<String, File> f : temp_Files.entrySet()) {
+            if (gui == null) {
+                System.out.println("-----------------");
+                System.out.println(String.format("Looking in file: %s", f.getKey()));
+            } else {
+                gui.output.append("-----------------\n");
+                gui.output.append(String.format("Looking in file: %s\n", f.getKey()));
+            }
             Runtime rt = Runtime.getRuntime();
-            Process proc = rt.exec(new String[]{Utils.javapPath(), "-c", f.getAbsolutePath()});
+            Process proc = rt.exec(new String[]{Utils.javapPath(), "-c", f.getValue().getAbsolutePath()});
             BufferedReader br = new BufferedReader(new InputStreamReader(proc.getInputStream()));
             String contents = "";
             String s;
@@ -78,11 +101,17 @@ public class GotoW {
                 contents += s + "\n";
             }
             if (contents.contains("goto_w")) {
-                System.out.print("!");
-            } else if (contents.isEmpty()) {
-                System.out.println("Please ensure that you have the JDK installed, and the path variable correctly set.");
+                if (gui == null) {
+                    System.out.println("Found goto_w");
+                } else {
+                    gui.output.append("Found goto_w\n");
+                }
             } else {
-                System.out.print("_");
+                if (gui == null) {
+                    System.out.print("No goto_w found.");
+                } else {
+                    gui.output.append("No goto_w found.\n");
+                }
             }
         }
         System.out.println();
