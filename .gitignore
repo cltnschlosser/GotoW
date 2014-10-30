@@ -6,6 +6,6 @@ bin/
 .classpath
 .settings/
 .project
-./gw.jar
+gw.jar
 
 *.bat
