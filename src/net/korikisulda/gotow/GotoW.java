@@ -15,19 +15,19 @@ import java.util.jar.JarFile;
 
 public class GotoW {
     public static void main(String[] args) throws IOException {
-        System.out.println("Basic Goto_W Java Bytecode Finder");
-        System.out.println("-----------------");
-        System.out.println("JAVA_HOME Location: " + Utils.javaHome());
-        System.out.println("JAVAP Location: " + Utils.javapPath());
-        System.out.println("\n");
+        Utils.println("Basic Goto_W Java Bytecode Finder");
+        Utils.println("-----------------");
+        Utils.println("JAVA_HOME Location: " + Utils.javaHome());
+        Utils.println("JAVAP Location: " + Utils.javapPath());
+        Utils.println("\n");
 
         if (Utils.javaHome() == null || Utils.javaHome() == null ? true : Utils.javaHome().trim().equals("")) {
-            System.out.println("Set JAVA_HOME variable in your PATH settings");
+            Utils.println("Set JAVA_HOME variable in your PATH settings");
             return;
         }
 
         if (args.length == 0) {
-            System.out.println("Correct Usage: gw.jar <filepath> || GUI");
+            Utils.println("Correct Usage: gw.jar <filepath> || GUI");
             return;
         }
 
