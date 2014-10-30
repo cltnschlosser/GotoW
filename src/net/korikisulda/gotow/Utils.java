@@ -3,7 +3,7 @@ package net.korikisulda.gotow;
 import java.io.File;
 
 /**
- * Created by Travis on 10/29/2014.
+ * Created by Travis (Toyz) on 10/29/2014.
  *
  * Utils.class, a better way to separate some basic logic and also we can place any external functions here
  */

@@ -7,6 +7,12 @@ import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+/**
+ * Edits by Travis (Toyz) on 10/29/2014.
+ *
+ * Original by, korikisulda
+ */
+
 public class GotoW {
     private HashMap<String, File> temp_Files = new HashMap<String, File>();
 
