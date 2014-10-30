@@ -23,7 +23,7 @@ public class GotoW {
         System.out.println("JAVAP Location: " + Utils.javapPath());
         System.out.println("\n");
 
-        if (Utils.javaHome().equals(null) || Utils.javaHome().trim().equals("")) {
+        if (Utils.javaHome()==null || Utils.javaHome()==null?true:Utils.javaHome().trim().equals("")) {
             System.out.println("Set JAVA_HOME variable in your PATH settings");
             return;
         }
