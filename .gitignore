@@ -1,11 +1,6 @@
-.idea/
-dist/
-*.iml
-bin/
+/bin/
 .hg/
 .classpath
 .settings/
 .project
 ./gw.jar
-
-*.bat
