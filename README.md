@@ -12,6 +12,6 @@ Original Creator: korikisulda
 
 Contributors: 
 
-GUI and other edits - Travis (Toyz)
+GUI and other edits, and most of the code. Also, director of modesty ;) - Travis (Toyz)
 
 
