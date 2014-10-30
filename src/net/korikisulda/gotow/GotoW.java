@@ -14,8 +14,6 @@ import java.util.jar.JarFile;
  */
 
 public class GotoW {
-    private HashMap<String, File> temp_Files = new HashMap<String, File>();
-
     private static GUI gui = null;
 
     public static void main(String[] args) throws IOException {
@@ -44,6 +42,7 @@ public class GotoW {
     }
 
     public void command(String[] args) throws IOException {
+        HashMap<String, File> temp_Files = new HashMap<String, File>();
         File inputFile = new File(args[0]);
 
         if (!inputFile.exists()) {
