@@ -117,13 +117,7 @@ public class GotoW {
     }
     
     public void println(String ... text){
-    	String concat="";
-    	for(String s:text) concat+=s;
-    	concat+="\n";
-        if (gui == null) {
-            System.out.print(concat);
-        }else{
-        	gui.output.append(concat);
-        }
+    	text[text.length-1]+="\n";
+    	print(text);
     }
 }
