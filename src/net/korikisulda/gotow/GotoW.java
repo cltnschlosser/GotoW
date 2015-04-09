@@ -21,7 +21,7 @@ public class GotoW {
         Utils.println("JAVAP Location: " + Utils.javapPath());
         Utils.println("\n");
 
-        if (Utils.javaHome() == null || Utils.javaHome() == null ? true : Utils.javaHome().trim().equals("")) {
+        if (Utils.javaHome() == null || Utils.javaHome().trim().equals("")) {
             Utils.println("Set JAVA_HOME variable in your PATH settings");
             return;
         }
@@ -32,14 +32,13 @@ public class GotoW {
         }
 
         if (args[0].equals("gui")) {
-            Utils.setGui(new GUI(new GotoW()));
-            Utils.getGui().setVisible(true);
+            Utils.createGui();
         } else {
-            new GotoW().command(args);
+            command(args);
         }
     }
 
-    public void command(String[] args) throws IOException {
+    public static void command(String[] args) throws IOException {
         HashMap<String, File> temp_Files = new HashMap<String, File>();
         File inputFile = new File(args[0]);
 
@@ -79,7 +78,7 @@ public class GotoW {
             is.close();
         }
 
-        Utils.println(String.format("Extracted %s classes from %s", temp_Files.size() + "", inputFile.getName()));
+        Utils.println(String.format("Extracted %d classes from %s", temp_Files.size(), inputFile.getName()));
 
         for (Map.Entry<String, File> f : temp_Files.entrySet()) {
 
@@ -95,7 +94,7 @@ public class GotoW {
                 contents += s + "\n";
             }
 
-            if (Utils.HasGotoW(contents)) {
+            if (Utils.hasGotoW(contents)) {
                 Utils.println("Found goto_w");
             } else {
                 Utils.println("No goto_w found.");

@@ -11,40 +11,37 @@ import java.io.IOException;
  */
 public class GUI extends JFrame {
     private static final long serialVersionUID = 4259967289409131510L;
-    public javax.swing.JTextArea output;
-    private GotoW main;
+    public JTextArea output;
 
-    private javax.swing.JButton find;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton sfile;
-    private javax.swing.JTextField tofind;
+    private JButton find;
+    private JScrollPane jScrollPane1;
+    private JButton sfile;
+    private JTextField tofind;
 
-    public GUI(final GotoW main) {
+    public GUI() {
         setTitle("Goto_w Finder GUI");
-        this.main = main;
         final JFileChooser fc = new JFileChooser();
         initComponents();
 
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-        } catch (InstantiationException ex) {
-        } catch (IllegalAccessException ex) {
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-        }
+        } catch (Exception e){}
 
 
-        sfile.addActionListener(new ActionListener() {
+        sfile.addActionListener(new ActionListener()
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 int returnVal = fc.showOpenDialog(null);
 
-                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                if (returnVal == JFileChooser.APPROVE_OPTION)
+                {
                     tofind.setText("");
                     File file = fc.getSelectedFile();
 
@@ -66,7 +63,7 @@ public class GUI extends JFrame {
 
                             output.setText("");
                             try {
-                                main.command(new String[]{tofind.getText()});
+                                GotoW.command(new String[]{tofind.getText()});
                             } catch (IOException e1) {
                                 e1.printStackTrace();
                             }
@@ -84,13 +81,13 @@ public class GUI extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-        sfile = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        output = new javax.swing.JTextArea();
-        find = new javax.swing.JButton();
-        tofind = new javax.swing.JTextField();
+        sfile = new JButton();
+        jScrollPane1 = new JScrollPane();
+        output = new JTextArea();
+        find = new JButton();
+        tofind = new JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         sfile.setText("Select file");
         sfile.setToolTipText("");
@@ -101,27 +98,27 @@ public class GUI extends JFrame {
 
         find.setText("Find Goto_w");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addComponent(sfile)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tofind, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tofind, GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(find))
                         .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
                                         .addComponent(sfile)
                                         .addComponent(find)
-                                        .addComponent(tofind, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
+                                        .addComponent(tofind, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE))
         );
 
         pack();

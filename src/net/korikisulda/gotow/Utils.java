@@ -38,14 +38,15 @@ public class Utils {
     }
 
     public static GUI getGui() {
-        return Utils.gui;
+        return gui;
     }
 
-    public static void setGui(GUI gui) {
-        Utils.gui = gui;
+    public static void createGui() {
+        gui = new GUI();
+        gui.setVisible(true);
     }
 
-    public static boolean HasGotoW(String content){
+    public static boolean hasGotoW(String content){
        return content.contains("goto_w");
     }
 }
